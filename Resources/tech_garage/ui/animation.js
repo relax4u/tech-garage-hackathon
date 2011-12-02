@@ -20,18 +20,24 @@
 			transform: Ti.UI.create2DMatrix().scale(0),
 			opacity: 0
 		});
+		
+		// UIコンポーネントに対するカスタムイベントの作成例
 		view.addEventListener('popup', function(e){
+			// 400msecで大きさを1.1倍にして、不透明にさせる
 			e.source.animate({
 				duration: 400,
 				transform: Ti.UI.create2DMatrix().scale(1.1),
 				opacity: 1
 			}, function(){
+				// 上記アニメーション完了後、今度は40msecで等倍に戻す
+				// 重要: アニメーション完了後にアニメーションをする場合は、直後に直ぐにアニメーションするのではなく、
+				// setTimeoutで遅らせてアニメーションする
 				setTimeout(function(){
 					e.source.animate({
 						duration: 40,
 						transform: Ti.UI.create2DMatrix().scale(1)
 					});
-				}, 5)
+				}, 5);
 			});
 		});
 		view.addEventListener('popdown', function(e){
@@ -45,7 +51,7 @@
 						transform: Ti.UI.create2DMatrix().scale(0),
 						opacity: 0
 					});
-				}, 5)
+				}, 5);
 			});
 		});
 		
@@ -56,14 +62,18 @@
 			bottom: 10
 		});
 		
+		
+		// イベントの切り替え例
 		var _popup = function(){
 			view.fireEvent("popup");
+			button.title = "close";
 			button.removeEventListener('click', _popup);
 			button.addEventListener('click', _popdown);
 		};
 		
 		var _popdown = function(){
 			view.fireEvent("popdown");
+			button.title = "open";
 			button.removeEventListener('click', _popdown);
 			button.addEventListener('click', _popup);
 		};
