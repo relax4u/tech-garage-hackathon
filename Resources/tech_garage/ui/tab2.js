@@ -17,9 +17,27 @@
 			text:'I am Window 2',
 			font:{fontSize:20,fontFamily:'Helvetica Neue'},
 			textAlign:'center',
-			width:'auto'
+			width:'auto',
+			height: 'auto'
 		});
 		win2.add(label2);
+		
+		// UIコンポーネントに存在するイベントの作成例
+		label2.addEventListener('click', function(){
+			alert("alert1");
+		});
+		
+		// アプリケーションレベルのイベントの作成例
+		label2.addEventListener('click', function(){
+			Ti.App.fireEvent("app:update.label1");
+		});
+		
+		// 一回のみ有効なイベントの作成例
+		var onetime = function(){
+			alert("onetime!");
+			label2.removeEventListener('click', onetime);
+		};
+		label2.addEventListener('click', onetime);
 		
 		return tab2;
 	};

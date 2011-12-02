@@ -19,8 +19,13 @@
 			textAlign:'center',
 			width:'auto'
 		});
-	
+		
 		win1.add(label1);
+		
+		// アプリケーションレベルのイベントの作成例
+		Ti.App.addEventListener('app:update.label1', function(){
+			label1.text = "label2 clicked!";
+		});
 		
 		return tab1;
 	};
